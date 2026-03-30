@@ -5,6 +5,7 @@
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/License-GPLv3-red.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey)]()
+[![PyPI](https://img.shields.io/pypi/v/nusantarascan)](https://pypi.org/project/nusantarascan/)
 
 ---
 
