@@ -130,10 +130,3 @@ NusantaraScan/
 Proyek ini menggunakan lisensi **GNU General Public License v3.0**
 
 ---
-
-<div align="center">
-
-Dibangun dengan ☕ dan semangat Nusantara  
-oleh [Lutfifakee](https://github.com/Lutfifakee-Project)
-
-</div>
