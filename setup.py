@@ -1,20 +1,22 @@
 from setuptools import setup, find_packages
 
-# Baca file README.md untuk project description
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
     name="nusantarascan",
-    version="0.1.1",  # Naikkan versi
-    description="Advanced Binary Analysis Tool dengan semangat Nusantara",
+    version="0.2.0",
+    description="Advanced Binary Analysis Tool",
+    keywords="malware analysis reverse engineering security",
+    project_urls={"Source": "https://github.com/Lutfifakee-Project/NusantaraScan",},
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="Lutfifakee",
     author_email="lutfifakeeproject@proton.me",
     url="https://github.com/Lutfifakee-Project/NusantaraScan",
-    license="GPL-3.0-or-later",  # Tambahkan license field
+    license="GPL-3.0-or-later",
     packages=find_packages(),
+    include_package_data=True,
     install_requires=[
         "pefile>=2023.2.7",
         "pyelftools>=0.29",
@@ -23,6 +25,7 @@ setup(
         "colorama>=0.4.6",
         "rich>=13.7.0",
         "python-magic>=0.4.27",
+        "requests>=2.28.0",
     ],
     entry_points={
         "console_scripts": [
