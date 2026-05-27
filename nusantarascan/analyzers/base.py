@@ -48,6 +48,6 @@ class BaseAnalyzer(ABC):
         for count in freq:
             if count > 0:
                 p = count / length
-                entropy -= p * math.log2(p)  # Lebih akurat
+                entropy -= p * math.log2(p)
         
         return entropy
