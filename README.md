@@ -1,37 +1,51 @@
-# 🌏 NusantaraScan
+# NusantaraScan
 
 > *"An open-source binary analysis tool for modern security workflows."*
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/License-GPLv3-red.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey)]()
-[![PyPI](https://img.shields.io/pypi/v/nusantarascan)](https://pypi.org/project/nusantarascan/)
 
 ---
 
-## 🧠 Tentang Proyek
+## 📌 About The Project
 
-**NusantaraScan** adalah tool open-source untuk analisis binary, mencakup malware analysis dan reverse engineering, dengan output yang terstruktur dan mudah dipahami.
+**NusantaraScan** is an open-source binary analysis tool designed for modern malware analysis and reverse engineering workflows.
 
-Dirancang agar:
-- Powerful untuk analis profesional
-- Tetap simpel untuk pemula
+It supports:
+- Malware analysis
+- RAT (Remote Access Trojan) detection
+- Binary reverse engineering
+- Packer detection
+- Entropy visualization
+- Multi-platform executable analysis
 
----
-
-## 🗡️ Fitur
-
-- ✅ **Static Analysis** — Informasi lengkap file binary (PE, ELF, Mach-O)
-- ✅ **String Extraction** — Deteksi string mencurigakan (URL, IP, API calls)
-- ✅ **Entropy Analysis** — Deteksi file terenkripsi atau packed
-- ✅ **Section Analysis** — Analisis struktur internal binary
-- ✅ **YARA Integration** — Scan dengan custom YARA rules
-- 🚧 **Disassembly** — (Coming soon) dengan Capstone Engine
-- ✅ **Multi-format Export** — JSON, HTML, Text
+Designed to be:
+- Powerful for professional analysts
+- Simple enough for beginners
 
 ---
 
-## 🚀 Instalasi
+## ✨ Features (v0.2.0)
+
+- Static Analysis (PE, ELF, Mach-O)
+- RAT Detection (DarkComet, NanoCore, NjRAT, Gh0st, etc.)
+- String Extraction (URLs, IPs, API calls)
+- Entropy Analysis
+- Section Analysis
+- YARA Integration
+- Disassembly (x86/x64/ARM/ARM64)
+- Multi-format Export (JSON, HTML)
+- Packer Detection (UPX, ASPack, MPRESS)
+- Entropy Visualization
+- Multi-file Scanning
+- VirusTotal Integration
+
+---
+
+## ⚙️ Installation
+
+### Clone Repository
 
 ```bash
 git clone https://github.com/Lutfifakee-Project/NusantaraScan.git
@@ -40,42 +54,71 @@ pip install -r requirements.txt
 python main.py --help
 ```
 
----
-
-## 💻 Contoh Penggunaan
+### Install from PyPI
 
 ```bash
-# Analisis dasar
+pip install nusantarascan
+```
+
+---
+
+## 🛡️ RAT Detection Examples
+
+```bash
+python main.py suspicious_file.exe --yara nusantarascan/signatures/yara_rules/rat_rules
+
+python main.py suspicious_file.exe --deep \
+--yara nusantarascan/signatures/yara_rules/rat_rules
+```
+
+---
+
+## 🚀 Usage Examples
+
+```bash
+# Basic analysis
 python main.py notepad.exe
 
-# Analisis mendalam dengan YARA scan
-python main.py malware.exe --deep
+# Detect packers
+python main.py malware.exe --packer
 
-# Scan dengan custom YARA rules
-python main.py suspicious.dll --yara rules/malware.yara
+# Entropy graph visualization
+python main.py malware.exe --graph
 
-# Export hasil ke HTML
+# Full disassembly
+python main.py malware.exe --full-disasm
+
+# Scan all files recursively
+python main.py ./malware_samples/ --recursive
+
+# Check file on VirusTotal (requires API key)
+python main.py malware.exe --vt --vt-api-key YOUR_API_KEY
+
+# Combine multiple features
+python main.py malware.exe --deep --packer --graph --vt
+
+# Export report to HTML/JSON
 python main.py file.exe --output report.html --format html
 ```
 
 ---
 
-## 📊 Contoh Output
+## 📊 Example Output
 
 ```text
     _   _                       _                  ____
    | \ | |_   _ ___  __ _ _ __ | |_ __ _ _ __ __ _/ ___|  ___ __ _ _ __
    |  \| | | | / __|/ _` | '_ \| __/ _` | '__/ _` \___ \ / __/ _` | '_ \
    | |\  | |_| \__ \ (_| | | | | || (_| | | | (_| |___) | (_| (_| | | | |
-   |_| \_|\__,_|___/\__,_|_| |_|\__\__,_|_|  \__,_|____/ \___\__,_|_| |_| v0.1.0
+   |_| \_|\__,_|___/\__,_|_| |_|\__\__,_|_|  \__,_|____/ \___\__,_|_| |_| 0.2.0
                 https://github.com/Lutfifakee-Project/
 
-[+] Target   : notepad.exe
-[+] Size     : 200,704 bytes (196.00 KB)
-[+] MD5      : 6f51bcabf1b2b34ad7e670aee6da451f
-[+] Entropy  : 6.3093
+[+] Target   : malware_simulator.exe
+[+] Size     : 8,456,064 bytes (8.06 MB)
+[+] MD5      : 1a2b3c4d5e6f7g8h9i0j
+[+] Entropy  : 6.8521
 
-📊 Section Analysis:
+[*] Section Analysis:
 ┏━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━┓
 ┃ Name   ┃ Virtual Address ┃ Virtual Size ┃ Raw Size ┃ Entropy ┃
 ┡━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━┩
@@ -83,51 +126,157 @@ python main.py file.exe --output report.html --format html
 │ .rdata │ 0x26000         │ 0x9288       │ 0x9400   │ 5.9296  │
 └────────┴─────────────────┴──────────────┴──────────┴─────────┘
 
-✅ Scan completed!
+[+] Imported Functions:
+    KERNEL32.dll
+      └─ CreateRemoteThread
+      └─ VirtualAllocEx
+      └─ WriteProcessMemory
+      └─ RegSetValueExW
+
+[+] String Analysis:
+    [!] Suspicious strings detected:
+      • DarkComet
+      • CreateRemoteThread
+      • VirtualAllocEx
+
+[!] YARA Scan:
+    [!] 2 YARA rule(s) matched:
+      • DarkComet_RAT
+      • Suspicious_RAT_APIs
+
+[+] Scan completed!
 ```
 
 ---
 
 ## 📦 Requirements
 
-- Python 3.8 atau lebih baru
+- Python 3.8 or newer
 
-Install dependencies:
+### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Dependencies:
-- `pefile` — Analisis file PE Windows
-- `pyelftools` — Analisis file ELF Linux
-- `capstone` — Disassembly engine (coming soon)
+### Main Dependencies
+
+- `pefile` — Windows PE analysis
+- `pyelftools` — Linux ELF analysis
+- `capstone` — Disassembly engine
 - `yara-python` — YARA integration
-- `rich` — CLI output formatting
+- `rich` — CLI formatting
+- `requests` — VirusTotal API integration
 
 ---
 
-## 📁 Struktur Proyek
+## 📁 Project Structure
 
 ```text
 NusantaraScan/
-├── main.py                  # Entry point utama
-├── requirements.txt        # Dependencies
-├── setup.py                # Installer
-├── README.md               # Dokumentasi
+├── main.py                  # Main entry point
+├── requirements.txt         # Python dependencies
+├── setup.py                 # Package installer
+├── README.md                # Documentation
 └── nusantarascan/
-    ├── cli.py              # CLI handler
-    ├── analyzers/          # Binary analyzers (PE, ELF)
-    ├── utils/              # Utilities (hash, entropy)
-    ├── signatures/         # YARA scanner
-    └── formatters/         # JSON/HTML export
+    ├── cli.py               # CLI handler
+    ├── analyzers/           # Binary analyzers (PE, ELF, Mach-O)
+    ├── visualizers/         # Entropy graph visualization
+    ├── integrations/        # VirusTotal integration
+    ├── scanners/            # Multi-file scanner
+    ├── utils/               # Utilities (hashing, entropy, etc.)
+    ├── signatures/          # YARA scanner & rules
+    │   └── yara_rules/
+    │       └── rat_rules/   # RAT detection rules
+    └── formatters/          # JSON/HTML exporters
 ```
 
 ---
 
+## 🧩 Using Community YARA Rules
 
-## 📜 Lisensi
+To significantly improve detection capabilities, you can integrate community-maintained YARA rules from the `Yara-Rules/rules` repository.
 
-Proyek ini menggunakan lisensi **GNU General Public License v3.0**
+This repository contains thousands of signatures for:
+- Malware detection
+- Packer detection
+- Exploit kits
+- Malicious documents
+- Anti-debugging techniques
+- Threat actor indicators
+
+---
+
+## 📥 Integrating Community Rules
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/Yara-Rules/rules.git \
+nusantarascan/signatures/yara_rules/community
+```
+
+### Directory Structure
+
+```text
+nusantarascan/signatures/yara_rules/
+├── rat_rules/          # Custom RAT rules
+└── community/          # Community YARA rules
+    ├── malware/
+    ├── packers/
+    ├── maldocs/
+    └── ...
+```
+
+---
+
+## 🔍 Using Community Rules
+
+### Scan with All Community Rules
+
+```bash
+python main.py suspicious_file.exe \
+--yara nusantarascan/signatures/yara_rules/community
+```
+
+### Scan with Malware Category Only
+
+```bash
+python main.py suspicious_file.exe \
+--yara nusantarascan/signatures/yara_rules/community/malware
+```
+
+### Combine Custom RAT Rules + Community Rules
+
+```bash
+python main.py suspicious_file.exe \
+--yara nusantarascan/signatures/yara_rules/
+```
+
+---
+
+## ⚠️ Disclaimer
+
+This project is intended for:
+- Security research
+- Malware analysis
+- Educational purposes
+- Authorized penetration testing
+
+The developer is **not responsible** for:
+- Illegal activities
+- Unauthorized system access
+- Misuse of this software
+- Damage caused by improper usage
+
+Use this tool responsibly and only in environments where you have explicit permission.
+
+---
+
+## 📄 License
+
+This project is licensed under the **GNU General Public License v3.0 (GPLv3)**.
+
+See the [LICENSE](LICENSE) file for more information.
 
 ---
