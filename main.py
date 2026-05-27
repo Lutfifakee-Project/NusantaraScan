@@ -19,7 +19,7 @@ except ImportError as e:
     print(f"[!] Error: {e}")
     print("[!] Pastikan struktur folder sudah benar:")
     print("    NusantaraScan/")
-    print("    ├── run.py")
+    print("    ├── main.py")
     print("    └── nusantarascan/")
     print("        ├── __init__.py")
     print("        ├── cli.py")
