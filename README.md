@@ -278,6 +278,6 @@ Use this tool responsibly and only in environments where you have explicit permi
 
 This project is licensed under the **GNU General Public License v3.0 (GPLv3)**.
 
-See the [LICENSE](LICENSE) file for more information.
+See the <a href='https://github.com/Lutfifakee-Project/NusantaraScan/blob/main/LICENSE'>LICENSE</a> file for more information.
 
 ---

@@ -5,10 +5,15 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="nusantarascan",
-    version="0.2.0",
+    version="0.2.2",
     description="Advanced Binary Analysis Tool",
     keywords="malware analysis reverse engineering security",
-    project_urls={"Source": "https://github.com/Lutfifakee-Project/NusantaraScan",},
+    project_urls={
+        "Homepage": "https://github.com/Lutfifakee-Project/NusantaraScan",
+        "Source": "https://github.com/Lutfifakee-Project/NusantaraScan",
+        "Bug Reports": "https://github.com/Lutfifakee-Project/NusantaraScan/issues",
+        "Documentation": "https://github.com/Lutfifakee-Project/NusantaraScan#readme",
+    },
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="Lutfifakee",
@@ -33,9 +38,20 @@ setup(
         ],
     },
     classifiers=[
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Developers",
+        "Intended Audience :: Information Technology",
+        "Topic :: Security",
+        "Topic :: Software Development :: Testing",
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: OS Independent",
     ],
+
     python_requires=">=3.8",
 )
