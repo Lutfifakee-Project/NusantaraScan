@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NusantaraScan | Advanced Binary Analysis Tool</title>
+    <meta name="description" content="NusantaraScan is an advanced open-source binary analysis tool for malware analysis, RAT detection, and reverse engineering workflows.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0d1117;
+            color: #e6edf3;
+            line-height: 1.5;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #30363d;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #58a6ff, #79c0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #e6edf3;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #58a6ff;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 0.75rem;
+            background: #21262d;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #8b949e;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #58a6ff, #79c0ff, #ff7b72);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero .tagline {
+            font-size: 1.2rem;
+            color: #8b949e;
+            margin-bottom: 2rem;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #238636;
+            color: white;
+            border: 1px solid #2ea043;
+        }
+
+        .btn-primary:hover {
+            background: #2ea043;
+        }
+
+        .btn-secondary {
+            background: #21262d;
+            color: #e6edf3;
+            border: 1px solid #30363d;
+        }
+
+        .btn-secondary:hover {
+            background: #30363d;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section */
+        .section {
+            padding: 5rem 0;
+            border-bottom: 1px solid #21262d;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: #8b949e;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: #161b22;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid #30363d;
+            transition: all 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: #58a6ff;
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: #8b949e;
+            font-size: 0.9rem;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .stat-card {
+            background: #161b22;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid #30363d;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #58a6ff;
+        }
+
+        .stat-label {
+            color: #8b949e;
+            font-size: 0.85rem;
+        }
+
+        /* Terminal */
+        .terminal {
+            background: #010409;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #30363d;
+            margin: 1.5rem 0;
+        }
+
+        .terminal-header {
+            background: #161b22;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #30363d;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27c93f; }
+
+        .terminal-body {
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .terminal-body pre {
+            font-family: 'SF Mono', 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: #e6edf3;
+            margin: 0;
+        }
+
+        .command {
+            color: #79c0ff;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: #161b22;
+            border-radius: 12px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            border: 1px solid #30363d;
+        }
+
+        .code-block pre {
+            font-family: 'SF Mono', 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* RAT Grid */
+        .rat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+
+        .rat-item {
+            background: #21262d;
+            border-radius: 8px;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.85rem;
+            border: 1px solid #30363d;
+        }
+
+        /* Footer */
+        .footer {
+            background: #010409;
+            padding: 3rem 0 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            color: #e6edf3;
+        }
+
+        .footer-section a {
+            display: block;
+            color: #8b949e;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: #58a6ff;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #21262d;
+            color: #8b949e;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 3rem 0;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">NusantaraScan</a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#installation">Installation</a>
+                <a href="#usage">Usage</a>
+                <a href="#rat-detection">RAT Detection</a>
+                <a href="#community">Community</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badges">
+                <span class="badge">Python 3.8+</span>
+                <span class="badge">Open Source</span>
+                <span class="badge">GPLv3</span>
+                <span class="badge">Cross-Platform</span>
+            </div>
+            <h1>NusantaraScan</h1>
+            <p class="tagline">Advanced Binary Analysis Tool for Malware Analysis & Reverse Engineering</p>
+            <div class="btn-group">
+                <a href="https://github.com/Lutfifakee-Project/NusantaraScan" class="btn btn-primary">GitHub</a>
+                <a href="https://pypi.org/project/nusantarascan" class="btn btn-secondary">PyPI</a>
+                <a href="#installation" class="btn btn-secondary">Quick Start</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Features Section -->
+        <section id="features" class="section">
+            <div class="section-header">
+                <h2>Features</h2>
+                <p>Powered by cutting-edge binary analysis technology</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Static Analysis</h3>
+                    <p>Full analysis for PE, ELF, and Mach-O binaries with section and entropy analysis.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🐀</div>
+                    <h3>RAT Detection</h3>
+                    <p>Detect DarkComet, NanoCore, NjRAT, Gh0st, and more using YARA rules.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Entropy Analysis</h3>
+                    <p>Visual entropy graphs to detect packed or encrypted binaries.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Disassembly</h3>
+                    <p>Multi-architecture support: x86, x64, ARM, ARM64 with Capstone engine.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🦠</div>
+                    <h3>YARA Integration</h3>
+                    <p>Custom YARA rules with built-in RAT signatures and community support.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3>VirusTotal API</h3>
+                    <p>Check file hashes against VirusTotal's malware database.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">12+</div>
+                <div class="stat-label">Features</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">RAT Signatures</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Platforms</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Architectures</div>
+            </div>
+        </div>
+
+        <!-- Installation Section -->
+        <section id="installation" class="section">
+            <div class="section-header">
+                <h2>Installation</h2>
+                <p>Get started in seconds</p>
+            </div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot red"></div>
+                    <div class="terminal-dot yellow"></div>
+                    <div class="terminal-dot green"></div>
+                </div>
+                <div class="terminal-body">
+                    <pre>$ pip install nusantarascan</pre>
+                </div>
+            </div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot red"></div>
+                    <div class="terminal-dot yellow"></div>
+                    <div class="terminal-dot green"></div>
+                </div>
+                <div class="terminal-body">
+                    <pre>$ git clone https://github.com/Lutfifakee-Project/NusantaraScan.git
+$ cd NusantaraScan
+$ pip install -r requirements.txt
+$ python main.py --help</pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Usage Section -->
+        <section id="usage" class="section">
+            <div class="section-header">
+                <h2>Usage Examples</h2>
+                <p>Simple commands, powerful results</p>
+            </div>
+            <div class="code-block">
+                <pre><span style="color:#8b949e"># Basic analysis</span>
+<span style="color:#79c0ff">$</span> nusantarascan notepad.exe
+
+<span style="color:#8b949e"># RAT detection with YARA rules</span>
+<span style="color:#79c0ff">$</span> nusantarascan suspicious.exe --yara nusantarascan/signatures/yara_rules/rat_rules
+
+<span style="color:#8b949e"># Full deep analysis</span>
+<span style="color:#79c0ff">$</span> nusantarascan malware.exe --deep --packer --graph --vt
+
+<span style="color:#8b949e"># Recursive scanning</span>
+<span style="color:#79c0ff">$</span> nusantarascan ./malware_samples/ --recursive
+
+<span style="color:#8b949e"># Export HTML report</span>
+<span style="color:#79c0ff">$</span> nusantarascan file.exe --output report.html --format html</pre>
+            </div>
+        </section>
+
+        <!-- RAT Detection Section -->
+        <section id="rat-detection" class="section">
+            <div class="section-header">
+                <h2>RAT Detection</h2>
+                <p>Detected Remote Access Trojan families</p>
+            </div>
+            <div class="rat-grid">
+                <div class="rat-item">DarkComet</div>
+                <div class="rat-item">NanoCore</div>
+                <div class="rat-item">NjRAT</div>
+                <div class="rat-item">Gh0st RAT</div>
+                <div class="rat-item">Orcus RAT</div>
+                <div class="rat-item">Quasar RAT</div>
+                <div class="rat-item">Bandook</div>
+                <div class="rat-item">Houdini</div>
+            </div>
+        </section>
+
+        <!-- Community Rules Section -->
+        <section id="community" class="section">
+            <div class="section-header">
+                <h2>Community YARA Rules</h2>
+                <p>Integrate with the Yara-Rules repository</p>
+            </div>
+            <div class="code-block">
+                <pre><span style="color:#8b949e"># Clone community rules</span>
+<span style="color:#79c0ff">$</span> git clone https://github.com/Yara-Rules/rules.git \
+nusantarascan/signatures/yara_rules/community
+
+<span style="color:#8b949e"># Scan with all community rules</span>
+<span style="color:#79c0ff">$</span> nusantarascan suspicious.exe --yara nusantarascan/signatures/yara_rules/community
+
+<span style="color:#8b949e"># Scan specific category</span>
+<span style="color:#79c0ff">$</span> nusantarascan suspicious.exe --yara nusantarascan/signatures/yara_rules/community/malware</pre>
+            </div>
+        </section>
+
+        <!-- Example Output -->
+        <section class="section">
+            <div class="section-header">
+                <h2>Example Output</h2>
+                <p>See NusantaraScan in action</p>
+            </div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot red"></div>
+                    <div class="terminal-dot yellow"></div>
+                    <div class="terminal-dot green"></div>
+                </div>
+                <div class="terminal-body">
+                    <pre>    _   _                       _
+   | \ | |_   _ ___  __ _ _ __ | |_ __ _ _ __ __ _
+   |  \| | | | / __|/ _` | '_ \| __/ _` | '__/ _` \
+   | |\  | |_| \__ \ (_| | | | | || (_| | | | (_| |
+   |_| \_|\__,_|___/\__,_|_| |_|\__\__,_|_|  \__,_| 0.2.2
+
+[+] Target   : malware_simulator.exe
+[+] Size     : 8.06 MB
+[+] Entropy  : 7.8521
+
+[!] Packer Detection:
+    [!] Detected packer: UPX
+
+[!] YARA Scan:
+    [!] DarkComet_RAT matched
+    [!] Suspicious_RAT_APIs matched
+
+[+] Scan completed!</pre>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>NusantaraScan</h4>
+                    <p style="color:#8b949e; font-size:0.85rem;">Advanced binary analysis tool for malware analysis and reverse engineering.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="https://github.com/Lutfifakee-Project/NusantaraScan">GitHub</a>
+                    <a href="https://pypi.org/project/nusantarascan">PyPI</a>
+                    <a href="https://github.com/Lutfifakee-Project/NusantaraScan/issues">Issues</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <a href="#">License (GPLv3)</a>
+                    <a href="#">Disclaimer</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2026 NusantaraScan. Open-source under GNU General Public License v3.0.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
