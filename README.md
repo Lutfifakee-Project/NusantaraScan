@@ -27,7 +27,7 @@ Designed to be:
 
 ---
 
-## ✨ Features (v0.2.0)
+## ✨ Features (v0.2.2)
 
 - Static Analysis (PE, ELF, Mach-O)
 - RAT Detection (DarkComet, NanoCore, NjRAT, Gh0st, etc.)
