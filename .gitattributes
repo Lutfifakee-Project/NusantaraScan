@@ -1,0 +1,35 @@
+# Auto-detect text files dan normalize ke LF di repo
+* text=auto
+
+# Source code & configs
+*.py    text eol=lf
+*.md    text eol=lf
+*.txt   text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.toml  text eol=lf
+*.cfg   text eol=lf
+*.ini   text eol=lf
+*.in    text eol=lf
+*.sh    text eol=lf
+
+# Windows-only scripts tetap CRLF
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+
+# Binary — jangan diubah
+*.png   binary
+*.jpg   binary
+*.gif   binary
+*.ico   binary
+*.pdf   binary
+*.zip   binary
+*.tar   binary
+*.gz    binary
+*.whl   binary
+*.exe   binary
+*.dll   binary
+*.so    binary
+*.elf   binary
+*.dylib binary
+*.macho binary

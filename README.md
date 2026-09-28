@@ -7,6 +7,7 @@
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-GPLv3-red.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey.svg)]()
+[![CI](https://github.com/Lutfifakee-Project/NusantaraScan/actions/workflows/ci.yml/badge.svg)](https://github.com/Lutfifakee-Project/NusantaraScan/actions/workflows/ci.yml)
 [![Version](https://img.shields.io/badge/Version-0.3.0-green.svg)]()
 [![Status](https://img.shields.io/badge/Status-Beta-yellow.svg)]()
 

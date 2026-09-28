@@ -9,7 +9,7 @@
 
 | Versi | Status | Tanggal | Highlights |
 |-------|--------|---------|------------|
-| **v0.3.0** | [DONE] Released | - | Security hardening, whitelist, risk scoring, `--all` flag |
+| **v0.3.0** | [DONE] Released | 2026-09-28 | Cross-platform tested (Windows + Linux + macOS), fix false positives, add tests |
 | **v0.3.1** | [WIP] Planned | TBD | Bug fixes dari user feedback |
 | **v0.4.0** | [WIP] Planned | TBD | Refactor engine/display + test coverage |
 | **v0.5.0** | [WIP] Planned | TBD | REST API + plugin system |
